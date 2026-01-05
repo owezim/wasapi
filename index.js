@@ -11,7 +11,10 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = process.env.PORT || 3000;
+const DEFAULT_PORT = 8080;
+const PORT = process.env.PORT || process.env.APP_PORT || DEFAULT_PORT;
+const HOST = process.env.HOST || '0.0.0.0';
+
 const app = express();
 
 app.use(express.json());
@@ -270,7 +273,7 @@ app.post('/webhook/set', (req, res) => {
    START SERVER
 ========================= */
 
-app.listen(PORT, () => {
-    console.log(`🚀 WhatsApp API running on port ${PORT}`);
+app.listen(PORT, HOST, () => {
+    console.log(`🚀 WhatsApp API running on ${HOST}:${PORT}`);
     initializeClient();
 });
